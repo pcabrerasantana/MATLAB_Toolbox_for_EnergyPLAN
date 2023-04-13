@@ -1,0 +1,164 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>EnergyPLAN calling execution from Matlab</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-04-13"><meta name="DC.source" content="Example.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>EnergyPLAN calling execution from Matlab</h1><!--introduction--><p>This document show how to use <b>energyPlan</b> Matlab function to call EnergyPLAN Advanced Energy System Analysis Computer Model [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">System Requirements</a></li><li><a href="#2">Paths and Folder definitions</a></li><li><a href="#3">EnergyPLAN calling and parameters/values definitions.</a></li><li><a href="#4">References</a></li><li><a href="#5">Contact info</a></li></ul></div><h2 id="1">System Requirements</h2><p>To use this toolbox you need the following requirements:</p><div><ul><li>Requires MATLAB R2014b or later.</li><li>Requires EnergyPLAN.</li><li>Requires EnergyPLAN Toolbox</li></ul></div><h2 id="2">Paths and Folder definitions</h2><p>To begin to work with this function you have to specify:</p><div><ol><li>The EnergyPLAN path, that it is the path address where it is located in your computer the .exe file of EnergyPLAN advanced energy system analysis computer model.</li><li>The input file path, that it is the path address where it is located in your computer your reference model input that you want to use in EnergyPLAN.</li><li>The ouput folder where you want to save your results.</li></ol></div><pre class="codeinput"><span class="comment">%Path where it is located EnergyPLAN executable.</span>
+energyPlanPath = <span class="string">'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\energyPLAN.exe'</span>;
+<span class="comment">%Path of reference file.</span>
+inputFilePath = <span class="string">'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\energyPlan Data\Data\Files for exercises\Denmark2030Alternative.txt'</span>;
+<span class="comment">%Folder where will be output resulf of EnergyPLAN.</span>
+outputFolder = <span class="string">'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\Outputs\'</span>;
+</pre><h2 id="3">EnergyPLAN calling and parameters/values definitions.</h2><p>After definitions of the principal sources of the function you can define some values that you want to change in your reference model execution.</p><p>Matlab doesn't change your reference model, it just reads your reference model, generates a new .text input file with the changes that you want to do and then executes this file to save results where you indicate.</p><p>In this example It is only showing how to change the Onshore and Offshore Wind Installed Capacities of Denmark2030Alternative.text reference model. Also, It is indicated the regulation strategy that EnergyPLAN has to employ. In this way it is possible to see how to specify whatever input parameter of EnergyPLAN input file. You only will need to know the name of parameter located in your reference input file, introduce this name followed his numeric or string value in the input part of <b>energyPlan</b> function execute in Matlab.</p><pre class="codeinput"><span class="comment">% Definition of numeric values to parameters of reference input file.</span>
+OnshoreWind=3500;
+OffshoreWind=3100;
+STR=<span class="string">'23457000'</span>;
+
+<span class="comment">%EnergyPLAN calling from matlab.</span>
+[annualData, monthlyData, hourlyData,<span class="keyword">...</span>
+    CO2, PES, RESshare,<span class="keyword">...</span>
+    TotalAnnualCosts, FuelExNgasExchange, NgasExchangeCosts,<span class="keyword">...</span>
+    MarginalCosts, ElectricityExCosts, ElectricImportCosts,<span class="keyword">...</span>
+    ElectricExportCosts, FixedImpExpCosts, CO2Costs, VariableCosts,<span class="keyword">...</span>
+    FixedCosts, AnnualInvestmentCosts, Coal, Oil,<span class="keyword">...</span>
+    Ngas, Biomass, Nuclear] = energyPlan(energyPlanPath, inputFilePath, outputFolder,<span class="keyword">...</span>
+    <span class="string">'input_RES1_capacity='</span>, OnshoreWind, <span class="string">'input_RES2_capacity='</span>, OffshoreWind,<span class="keyword">...</span>
+    <span class="string">'input_keol_reg='</span>, STR);
+</pre><h2 id="4">References</h2><p>[1] Aalborg University. EnergyPLAN: Advanced Energy System Analysis       Computer Model. Available from: <a href="http://www.energyplan.eu">http://www.energyplan.eu</a>.</p><h2 id="5">Contact info</h2><p>Pedro Cabrera: <a href="mailto:pedro.cabrerasantana@ulpgc.es">pedro.cabrerasantana@ulpgc.es</a></p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% EnergyPLAN calling execution from Matlab
+% This document show how to use *energyPlan* Matlab function to call
+% EnergyPLAN Advanced Energy System Analysis Computer Model [1].
+
+%% System Requirements
+% To use this toolbox you need the following requirements:
+%
+% * Requires MATLAB R2014b or later.
+% * Requires EnergyPLAN.
+% * Requires EnergyPLAN Toolbox
+
+%% Paths and Folder definitions
+% To begin to work with this function you have to specify:
+%
+% # The EnergyPLAN path, that it is the path address where it is located in
+% your computer the .exe file of EnergyPLAN advanced energy system analysis
+% computer model.
+% # The input file path, that it is the path address where it is located
+% in your computer your reference model input that you want to use in EnergyPLAN.
+% # The ouput folder where you want to save your results.
+
+%Path where it is located EnergyPLAN executable.
+energyPlanPath = 'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\energyPLAN.exe';
+%Path of reference file.
+inputFilePath = 'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\energyPlan Data\Data\Files for exercises\Denmark2030Alternative.txt';
+%Folder where will be output resulf of EnergyPLAN.
+outputFolder = 'C:\Users\pedro\Desktop\ZipEnergyPLAN162\ZipEnergyPLAN162\Outputs\';
+
+%% EnergyPLAN calling and parameters/values definitions.
+% After definitions of the principal sources of the function you can define
+% some values that you want to change in your reference model execution.
+%
+% Matlab doesn't change your reference model, it just reads your reference
+% model, generates a new .text input file with the changes that you want to
+% do and then executes this file to save results where you indicate.
+%
+% In this example It is only showing how to change the Onshore and Offshore
+% Wind Installed Capacities of Denmark2030Alternative.text reference model.
+% Also, It is indicated the regulation strategy that EnergyPLAN has to employ.
+% In this way it is possible to see how to specify whatever input parameter
+% of EnergyPLAN input file. You only will need to know the name of parameter
+% located in your reference input file, introduce this name followed his numeric or string
+% value in the input part of *energyPlan* function execute in Matlab.
+%
+
+% Definition of numeric values to parameters of reference input file.
+OnshoreWind=3500;
+OffshoreWind=3100;
+STR='23457000';
+
+%EnergyPLAN calling from matlab.
+[annualData, monthlyData, hourlyData,...
+    CO2, PES, RESshare,...
+    TotalAnnualCosts, FuelExNgasExchange, NgasExchangeCosts,...
+    MarginalCosts, ElectricityExCosts, ElectricImportCosts,...
+    ElectricExportCosts, FixedImpExpCosts, CO2Costs, VariableCosts,...
+    FixedCosts, AnnualInvestmentCosts, Coal, Oil,...
+    Ngas, Biomass, Nuclear] = energyPlan(energyPlanPath, inputFilePath, outputFolder,...
+    'input_RES1_capacity=', OnshoreWind, 'input_RES2_capacity=', OffshoreWind,...
+    'input_keol_reg=', STR);
+
+%% References
+% [1] Aalborg University. EnergyPLAN: Advanced Energy System Analysis
+%       Computer Model. Available from: http://www.energyplan.eu.
+%
+
+%% Contact info
+% Pedro Cabrera: pedro.cabrerasantana@ulpgc.es
+
+
+##### SOURCE END #####
+--></body></html>
